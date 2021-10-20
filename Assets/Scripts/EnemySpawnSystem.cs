@@ -5,33 +5,33 @@ using Unity.Mathematics;
 
 public class EnemySPawnSystem : SystemBase
 {
-	EnemySpawnSettings settings;
-	float spawnDelay;
-	Random randomData;
+	Random RandomData;
+	float SpawnDelay;
 	protected override void OnStartRunning()
 	{
 		base.OnStartRunning();
-		settings = GetSingleton<EnemySpawnSettings>();
-		randomData = new Random(1);
+		RandomData = new Random(1);
+
 	}
 
 	protected override void OnUpdate()
 	{
-		spawnDelay += (float)Time.ElapsedTime;
+		var settings = GetSingleton<EnemySpawnSettings>();
 
-		if(spawnDelay < settings.TimeBetweenSpawns)
+		SpawnDelay += Time.DeltaTime;
+		if(SpawnDelay < settings.TimeBetweenSpawns)
 		{
 			return;
 		}
 		else
 		{
-			spawnDelay %= settings.TimeBetweenSpawns;
+			SpawnDelay %= settings.TimeBetweenSpawns;
 		}
 
 		Entity enemy = EntityManager.Instantiate(settings.Enemy);
-		EntityManager.DestroyEntity(settings.Enemy);
+		//EntityManager.DestroyEntity(settings.Enemy);
 
-		EntityManager.SetComponentData(enemy, new Translation { Value = new float3 { x = randomData.NextFloat(-10f, 10f), y = 10 } });
+		EntityManager.SetComponentData(enemy, new Translation { Value = new float3 {x=RandomData.NextFloat(-10f, 10f), y = 10 } });
 
 	}
 }
