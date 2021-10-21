@@ -7,4 +7,5 @@ public struct InputData : IComponentData
 	public KeyCode downKey;
 	public KeyCode rightKey;
 	public KeyCode leftKey;
+	public KeyCode ShootKey;
 }
