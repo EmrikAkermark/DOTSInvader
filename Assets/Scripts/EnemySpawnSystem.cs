@@ -29,8 +29,6 @@ public class EnemySPawnSystem : SystemBase
 		}
 
 		Entity enemy = EntityManager.Instantiate(settings.Enemy);
-		//EntityManager.DestroyEntity(settings.Enemy);
-
 		EntityManager.SetComponentData(enemy, new Translation { Value = new float3 {x=RandomData.NextFloat(-10f, 10f), y = 10 } });
 
 	}
